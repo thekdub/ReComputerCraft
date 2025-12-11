@@ -1,0 +1,30 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.1'
+    id 'java'
+}
+
+group = 'com.thekdub'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+
+    flatDir {
+        dirs 'resources'
+    }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Bukkit, Local, provided by server
+    compileOnly group: null, name: 'Tekkit', version: null
+    implementation("org.apache.bcel:bcel:5.2")
+    implementation("org.luaj:luaj-jse:2.0.3")
+}
+
+test {
+    useJUnitPlatform()
+}
