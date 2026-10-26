@@ -3,5 +3,3 @@ Refined version of ComputerCraft focused on increased performance and fewer bugs
 
 Changes:
 - TBD
-
-The original IndustrialCraft 2 was made by Dan200. All credits to them.
