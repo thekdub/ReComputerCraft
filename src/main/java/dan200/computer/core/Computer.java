@@ -1381,6 +1381,7 @@ public class Computer {
 					break;
 				case 4:
 					aobj[l] = luavalue.toString();
+					break;
 				default:
 					aobj[l] = null;
 					break;
