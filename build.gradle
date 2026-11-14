@@ -22,7 +22,8 @@ dependencies {
     // Bukkit, Local, provided by server
     compileOnly group: null, name: 'Tekkit', version: null
     implementation("org.apache.bcel:bcel:5.2")
-    implementation("org.luaj:luaj-jse:2.0.3")
+    // Source: https://mvnrepository.com/artifact/org.luaj/luaj-jse
+    implementation("org.luaj:luaj-jse:3.0.1")
 }
 
 test {
