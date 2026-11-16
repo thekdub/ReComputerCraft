@@ -1256,7 +1256,7 @@ public class TileEntityTurtle extends TileEntity implements ITurtle, IInventory,
 	}
 
 	public String getTurtleName() {
-		return "[ComputerCraft] Turtle " + this.getComputerID();
+		return "[ccturtle-" + this.getComputerID() + "]";
 	}
 
 	public ItemStack[] getContents() {
