@@ -206,7 +206,7 @@ local function receiveOnPort( sPort )
 	return false
 end
 			
-local function runPort( sPort, nClockRate )
+local function runPort( sPort, nClockRate, nbRange )
 	-- Open the port
 	tOpen[sPort] = true
 	rs.setBundledOutput( sPort, 0 )
@@ -216,7 +216,11 @@ local function runPort( sPort, nClockRate )
 		local sPeriph = peripheral.getType( sPort )
 		if sPeriph == "modem" then
 			tPortPeripheral[sPort] = peripheral.wrap( sPort )
-			tPortPeripheral[sPort].open()
+            if nbRange ~= nil then
+			    tPortPeripheral[sPort].open(nbRange)
+            else
+                tPortPeripheral[sPort].open()
+            end
 		else
 			tPortPeripheral[sPort] = nil
 		end			
@@ -288,10 +292,12 @@ function run()
 			end
 		elseif e == "open" then
 			local sSide = p1
+
 			if portRoutines[sSide] == nil then
 				local nClockRate = p2
+                local nbRange = p3
 				portRoutines[sSide] = coroutine.wrap( function()
-					runPort( sSide, nClockRate )
+					runPort( sSide, nClockRate,  nbRange)
 					portRoutines[sSide] = nil
 				end )
 				portRoutines[sSide]()
@@ -308,7 +314,7 @@ function run()
 	runRoutine = nil
 end
 
-function open( sSide, nClockRate )
+function open( sSide, nClockRate, range )
 	if type( sSide ) ~= "string" then
 		error( "string expected" )
 	end
@@ -319,7 +325,9 @@ function open( sSide, nClockRate )
 	if type( nClockRate ) ~= "number" or nClockRate <= 0 then
 		error( "positive number expected" )
 	end
-	runRoutine( "open", sSide, nClockRate )
+
+    runRoutine( "close", sSide)
+	runRoutine( "open", sSide, nClockRate, range )
 end
 
 function close( sSide )

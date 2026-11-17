@@ -38,26 +38,25 @@ public class WirelessNetwork {
 		this.m_receivers.remove(wirelessReceiver.getID());
 	}
 
-	public synchronized void broadcast(int i, String s, double d, double d1, double d2, double d3) {
+	public synchronized void broadcast(int i, String s, double d1, double d2, double d3) {
 		for (IWirelessReceiver wirelessReceiver : this.m_receivers.values()) {
-			this.tryTransmit(wirelessReceiver, i, s, d, d1, d2, d3);
+			this.tryTransmit(wirelessReceiver, i, s, d1, d2, d3);
 		}
 	}
 
-	public synchronized void transmit(int i, int j, String s, double d, double d1, double d2, double d3) {
+	public synchronized void transmit(int i, int j, String s, double d1, double d2, double d3) {
 		IWirelessReceiver wirelessReceiver = this.m_receivers.get(j);
 		if (wirelessReceiver != null) {
-			this.tryTransmit(wirelessReceiver, i, s, d, d1, d2, d3);
+			this.tryTransmit(wirelessReceiver, i, s, d1, d2, d3);
 		}
 	}
 
-	private void tryTransmit(IWirelessReceiver wirelessReceiver, int i, String s, double d, double d1, double d2, double d3) {
+	private void tryTransmit(IWirelessReceiver wirelessReceiver, int i, String s, double d1, double d2, double d3) {
 		if (wirelessReceiver.getID() != i) {
 			Vec3D vec3d = wirelessReceiver.getWorldPosition();
 			double d4 = vec3d.d(d1, d2, d3);
-			if (d4 <= d * d) {
-				wirelessReceiver.receive(i, s, Math.sqrt(d4));
-			}
+
+			wirelessReceiver.receive(i, s, Math.sqrt(d4));
 		}
 	}
 }
