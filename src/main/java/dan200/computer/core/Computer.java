@@ -5,6 +5,8 @@ import dan200.computer.api.IPeripheral;
 import dan200.computer.shared.ItemComputer;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.SharedConstants;
+import net.minecraft.server.mod_ComputerCraft;
+
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaString;
 import org.luaj.vm2.LuaTable;
@@ -634,6 +636,11 @@ public class Computer {
 	private void initLua() {
 		LuaTable globalTable = JsePlatform.debugGlobals();
 		LuaValue loadstringValue = globalTable.get("loadstring");
+
+        LuaTable initConfig = new LuaTable();
+        initConfig.set("max_modem_range", mod_ComputerCraft.modem_range);
+        globalTable.set("base_config", initConfig);
+
 		globalTable.set("collectgarbage", LuaValue.NIL);
 		globalTable.set("dofile", LuaValue.NIL);
 		globalTable.set("load", LuaValue.NIL);
@@ -646,6 +653,7 @@ public class Computer {
 		globalTable.set("debug", LuaValue.NIL);
 		globalTable.set("print", LuaValue.NIL);
 		globalTable.set("luajava", LuaValue.NIL);
+
 		LuaTable termTable = new LuaTable();
 		termTable.set("write", new OneArgFunction() {
 			@Override
