@@ -1,4 +1,4 @@
-local DEFAULT_MAX_DISTANCE = 256
+
 local tOpen = {}
 local tBusy = {}
 local tRoutes = {}
