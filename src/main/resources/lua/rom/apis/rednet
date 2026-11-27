@@ -393,7 +393,13 @@ function announce( bWaitUntilPortOpen )
 	return broadcast( "" )
 end
 
-function receive( nTimeout )
+function receive( nTimeout, maxDistance )
+    if not maxDistance then
+        maxDistance = base_config.max_modem_range
+    end
+
+    assert(type(maxDistance) == "number", "rednet.receive argument 2 max distance must be a number!")
+
 	local timer = nil
 	if nTimeout then
 		timer = os.startTimer( nTimeout )
@@ -401,7 +407,9 @@ function receive( nTimeout )
 	while true do
 		local e, p1, p2, p3 = os.pullEvent()
 		if e == "rednet_message" then
-			return p1, p2, p3
+            if p3 <= maxDistance then
+			    return p1, p2, p3
+            end
 		elseif e == "timer" and p1 == timer then
 			return nil, nil, nil
 		end

@@ -55,9 +55,8 @@ public class WirelessNetwork {
 		if (wirelessReceiver.getID() != i) {
 			Vec3D vec3d = wirelessReceiver.getWorldPosition();
 			double d4 = vec3d.d(d1, d2, d3);
-			if (d4 <= d * d) {
-				wirelessReceiver.receive(i, s, Math.sqrt(d4));
-			}
+            
+			wirelessReceiver.receive(i, s, Math.sqrt(d4));
 		}
 	}
 }
