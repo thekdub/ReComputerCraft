@@ -407,7 +407,7 @@ function receive( nTimeout, maxDistance )
 	while true do
 		local e, p1, p2, p3 = os.pullEvent()
 		if e == "rednet_message" then
-            if maxDistance and p3 <= maxDistance then
+            if p3 <= maxDistance then
 			    return p1, p2, p3
             end
 		elseif e == "timer" and p1 == timer then
